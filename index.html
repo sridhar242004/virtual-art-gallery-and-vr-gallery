@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoBrut VR Art Gallery - Advanced</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0a0a0a;
+            --secondary-color: #f0f0f0;
+            --accent-color-1: #ff3e3e;
+            --accent-color-2: #00ff9d;
+            --accent-color-3: #3e00ff;
+            --text-color: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--primary-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            mix-blend-mode: difference;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: bold;
+color: var(--secondary-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 40px;
+        }
+
+        .nav-links li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color-1);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links li a:hover::after {
+            transform: scaleX(1);
+        }
+
+       
+        
+        .glitch {
+            position: relative;
+            display: inline-block;
+            color: var(--secondary-color);
+        }
+        
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-color-1);
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--accent-color-2);
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        
+        .hero-description {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            position: center;
+        }
+        
+        .enter-btn {
+            opacity: 0;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .geometric-shape {
+            position: absolute;
+            opacity: 0.1;
+            filter: blur(40px);
+        }
+        
+        .shape1 {
+            top: -10%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background-color: var(--accent-color-1);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+        
+        .shape2 {
+            bottom: -10%;
+            right: -10%;
+            width: 40%;
+            height: 40%;
+            background-color: var(--accent-color-2);
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+        }
+        
+        .shape3 {
+            top: 50%;
+            left: 50%;
+            width: 30%;
+            height: 30%;
+            background-color: var(--accent-color-3);
+            border-radius: 41% 59% 40% 60% / 65% 31% 69% 35%;
+        }
+        
+        @keyframes glitch-anim {
+            0% {
+                clip: rect(42px, 9999px, 44px, 0);
+            }
+            5% {
+                clip: rect(12px, 9999px, 59px, 0);
+            }
+            10% {
+                clip: rect(48px, 9999px, 29px, 0);
+            }
+            15% {
+                clip: rect(42px, 9999px, 73px, 0);
+            }
+            20% {
+                clip: rect(63px, 9999px, 27px, 0);
+            }
+            25% {
+                clip: rect(34px, 9999px, 55px, 0);
+            }
+            30% {
+                clip: rect(86px, 9999px, 73px, 0);
+            }
+            35% {
+                clip: rect(20px, 9999px, 20px, 0);
+            }
+            40% {
+                clip: rect(26px, 9999px, 60px, 0);
+            }
+            45% {
+                clip: rect(25px, 9999px, 66px, 0);
+            }
+            50% {
+                clip: rect(57px, 9999px, 98px, 0);
+            }
+            55% {
+                clip: rect(5px, 9999px, 46px, 0);
+            }
+            60% {
+                clip: rect(82px, 9999px, 31px, 0);
+            }
+            65% {
+                clip: rect(54px, 9999px, 27px, 0);
+            }
+            70% {
+                clip: rect(28px, 9999px, 99px, 0);
+            }
+            75% {
+                clip: rect(45px, 9999px, 69px, 0);
+            }
+            80% {
+                clip: rect(23px, 9999px, 85px, 0);
+            }
+            85% {
+                clip: rect(54px, 9999px, 84px, 0);
+            }
+            90% {
+                clip: rect(45px, 9999px, 47px, 0);
+            }
+            95% {
+                clip: rect(37px, 9999px, 20px, 0);
+            }
+            100% {
+                clip: rect(4px, 9999px, 91px, 0);
+            }
+        }
+        
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(65px, 9999px, 100px, 0);
+            }
+            5% {clip: rect(52px, 9999px, 74px, 0);
+            }
+            10% {
+                clip: rect(79px, 9999px, 85px, 0);
+            }
+            15% {
+                clip: rect(75px, 9999px, 5px, 0);
+            }
+            20% {
+                clip: rect(67px, 9999px, 61px, 0);
+            }
+            25% {
+                clip: rect(14px, 9999px, 79px, 0);
+            }
+            30% {
+                clip: rect(1px, 9999px, 66px, 0);
+            }
+            35% {
+                clip: rect(86px, 9999px, 30px, 0);
+            }
+            40% {
+                clip: rect(23px, 9999px, 98px, 0);
+            }
+            45% {
+                clip: rect(85px, 9999px, 72px, 0);
+            }
+            50% {
+                clip: rect(71px, 9999px, 75px, 0);
+            }
+            55% {
+                clip: rect(2px, 9999px, 48px, 0);
+            }
+            60% {
+                clip: rect(30px, 9999px, 16px, 0);
+            }
+            65% {
+                clip: rect(59px, 9999px, 50px, 0);
+            }
+            70% {
+                clip: rect(41px, 9999px, 62px, 0);
+            }
+            75% {
+                clip: rect(2px, 9999px, 82px, 0);
+            }
+            80% {
+                clip: rect(47px, 9999px, 73px, 0);
+            }
+            85% {
+                clip: rect(3px, 9999px, 27px, 0);
+            }
+            90% {
+                clip: rect(26px, 9999px, 55px, 0);
+            }
+            95% {
+                clip: rect(42px, 9999px, 97px, 0);
+            }
+            100% {
+                clip: rect(38px, 9999px, 49px, 0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color-1);
+            color: var(--secondary-color);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: all 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .featured-artists {
+            padding: 150px 0;
+            background-color: var(--secondary-color);
+        }
+
+        .featured-artists h2 {
+            text-align: center;
+            margin-bottom: 80px;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--primary-color);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+        }
+
+        .artist-card {
+            background-color: var(--primary-color);
+            border: 5px solid var(--accent-color-2);
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 1 / 1;
+        }
+
+        .artist-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .artist-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .artist-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .artist-card:hover .artist-info {
+            transform: translateY(0);
+        }
+
+        .artist-info h3 {
+            margin-bottom: 10px;
+            font-size: 2rem;
+            color: var(--accent-color-2);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .artist-info p {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+
+        .virtual-gallery {
+            padding: 150px 0;
+            background-color: var(--primary-color);
+        }
+
+        .virtual-gallery h2 {
+            text-align: center;
+            margin-bottom: 80px;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--secondary-color);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .gallery-container {
+            position: relative;
+            height: 800px;
+            overflow: hidden;
+            border: 10px solid var(--accent-color-3);
+        }
+
+        .marketplace {
+            padding: 150px 0;
+            background-color: var(--secondary-color);
+        }
+
+        .marketplace h2 {
+            text-align: center;
+            margin-bottom: 80px;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--primary-color);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .artwork-card {
+            background-color: var(--primary-color);
+            border: 5px solid var(--accent-color-1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .artwork-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .artwork-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .artwork-info {
+            padding: 20px;
+            background-color: var(--primary-color);
+        }
+
+        .artwork-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            color: var(--accent-color-1);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .artwork-info p {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .artwork-info .price {
+            font-weight: bold;
+            color: var(--accent-color-2);
+            font-size: 1.5rem;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color-3);
+            color: var(--secondary-color);
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .buy-btn:hover {
+            background-color: var(--accent-color-2);
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-right: 30px;
+        }
+
+        .footer-links li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links li a:hover {
+            color: var(--accent-color-1);
+        }
+
+        .social-icons {
+            display: flex;
+        }
+
+        .social-icons a {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-left: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--accent-color-1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                margin-bottom: 30px;
+            }
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-spinner {
+            width: 100px;
+            height: 100px;
+            border: 10px solid var(--accent-color-1);
+            border-top: 10px solid var(--accent-color-2);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100%;
+            background-color: var(--primary-color);
+            padding: 50px 20px;
+            transition: right 0.3s ease;
+            z-index: 1001;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+        }
+
+        .mobile-menu ul li {
+            margin-bottom: 30px;
+        }
+
+        .mobile-menu ul li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .close-menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p>Loading NeoBrut VR Art Gallery...</p>
+        </div>
+    </div>
+
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">NeoBrut</a>
+         
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+    </header>
+
+    <div class="mobile-menu">
+        <button class="close-menu-btn">×</button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#artists">Artists</a></li>
+            <li><a href="#marketplace">Marketplace</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>
+                    <span class="glitch" data-text="NeoBrut">NeoBrut</span>
+                    <span class="glitch" data-text="VR">VR</span>
+                    <span class="glitch" data-text="Art">Art</span>
+                    <span class="glitch" data-text="Gallery">Gallery</span>
+                </h1>
+                
+            </div>
+            <div class="hero-background">
+                <div class="geometric-shape shape1"></div>
+                <div class="geometric-shape shape2"></div>
+                <div class="geometric-shape shape3"></div>
+            </div>
+            <div id="hero-3d-scene"></div>
+        </section>
+
+        <section id="artists" class="featured-artists">
+            <div class="container">
+                <h2>Featured Artists</h2>
+                <div class="artist-grid">
+                    <!-- Artist cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="virtual-gallery">
+            <div class="container">
+                <h2>Virtual Gallery</h2>
+                <div class="gallery-container">
+                    <div id="gallery-3d-scene"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="marketplace" class="marketplace">
+            <div class="container">
+                <h2>Art Marketplace</h2>
+                <div class="artwork-grid">
+                    <!-- Artwork cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter" class="newsletter">
+            <div class="container">
+                <h2>Stay in the Loop</h2>
+                <p>Subscribe for exclusive drops and virtual events</p>
+                <form id="newsletter-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit" class="btn">Join the Movement</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#artists">Artists</a></li>
+                    <li><a href="#marketplace">Marketplace</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <p>&copy; 2024 NeoBrut VR Art Gallery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        // JavaScript code
+        document.addEventListener('DOMContentLoaded', () => {
+            // Loader
+            window.addEventListener('load', () => {
+                gsap.to('.loader', {
+                    opacity: 0,
+                    duration: 1,
+                    onComplete: () => {
+                        document.querySelector('.loader').style.display = 'none';
+                    }
+                });
+            });
+
+            // Hero animations
+            const heroTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+
+            heroTl.to('.hero-content', {
+                y: 200,
+                opacity: 0,
+                ease: 'power2.in'
+            });
+
+            gsap.from('.glitch', {
+                duration: 1,
+                y: 100,
+                opacity: 0,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.hero-description', {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                delay: 1,
+                ease: 'power2.out'
+            });
+
+            gsap.from('.enter-btn', {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                delay: 1.2,
+                ease: 'power2.out'
+            });
+
+            // Geometric shapes animation
+            gsap.to('.shape1', {
+                x: '10%',
+                y: '10%',
+                rotation: 360,
+                duration: 20,
+                repeat: -1,
+                yoyo: true,
+                ease: 'none'
+            });
+
+            gsap.to('.shape2', {
+                x: '-10%',
+                y: '-10%',
+                rotation: -360,
+                duration: 25,
+                repeat: -1,
+                yoyo: true,
+                ease: 'none'
+            });
+
+            gsap.to('.shape3', {
+                x: '15%',
+                y: '-15%',
+                rotation: 180,
+                duration: 22,
+                repeat: -1,
+                yoyo: true,
+                ease: 'none'
+            });
+
+            // 3D Scene for Hero Section
+            const heroScene = new THREE.Scene();
+            const heroCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            heroRenderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('hero-3d-scene').appendChild(heroRenderer.domElement);
+
+            const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+            const material = new THREE.MeshNormalMaterial();
+            const torusKnot = new THREE.Mesh(geometry, material);
+            heroScene.add(torusKnot);
+
+            heroCamera.position.z = 30;
+
+            function animateHero() {
+                requestAnimationFrame(animateHero);
+                torusKnot.rotation.x += 0.01;
+                torusKnot.rotation.y += 0.01;
+                heroRenderer.render(heroScene, heroCamera);
+            }
+            animateHero();
+
+            // Parallax effect for hero section
+            gsap.to('#hero-3d-scene', {
+                y: '30%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+
+            // Mobile menu
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const closeMenuBtn = document.querySelector('.close-menu-btn');
+            const mobileMenu = document.querySelector('.mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                gsap.to(mobileMenu, { right: 0, duration: 0.5, ease: 'power2.out' });
+            });
+
+            closeMenuBtn.addEventListener('click', () => {
+                gsap.to(mobileMenu, { right: '-100%', duration: 0.5, ease: 'power2.in' });
+            });
+
+            // Featured Artists
+            const artistGrid = document.querySelector('.artist-grid');
+            const featuredArtists = [
+                { name: 'Neon Nebula', style: 'Digital Surrealism', image: 'Digital Surrealism.jpg' },
+                { name: 'Pixel Punk', style: 'Glitch Art', image: 'Glitch Art.jpg'},
+                { name: 'Voxel Vortex', style: '3D Minimalism', image: '3D Minimalism.png' },
+                { name: 'Holo Horizon', style: 'AR Installations', image: 'AR Installations.jpg' },
+            ];
+
+            featuredArtists.forEach(artist => {
+                const artistCard = document.createElement('div');
+                artistCard.classList.add('artist-card');
+                artistCard.innerHTML = `
+                    <img src="${artist.image}" alt="${artist.name}">
+                    <div class="artist-info">
+                        <h3>${artist.name}</h3>
+                        <p>${artist.style}</p>
+                    </div>
+                `;
+                artistGrid.appendChild(artistCard);
+            });
+
+            // Artwork Marketplace
+            const artworkGrid = document.querySelector('.artwork-grid');
+            const artworks = [
+                { title: 'Cybernetic Dreamscape', artist: 'Neon Nebula', price: '$2,500', image: 'Cybernetic Dreamscape.jpg' },
+                { title: 'Quantum Quilt', artist: 'Pixel Punk', price: '$1,800', image: 'Quantum Quilt.jpg' },
+                { title: 'Neural Network Nexus', artist: 'Voxel Vortex', price: '$3,200', image: 'Neural Network Nexus.jpg' },
+                { title: 'Holographic Harmony', artist: 'Holo Horizon', price: '$2,900', image: 'Holographic Harmony.jpg' },
+            ];
+
+            artworks.forEach(artwork => {
+                const artworkCard = document.createElement('div');
+                artworkCard.classList.add('artwork-card');
+                artworkCard.innerHTML = `
+                    <img src="${artwork.image}" alt="${artwork.title}">
+                    <div class="artwork-info">
+                        <h3>${artwork.title}</h3>
+                        <p>by ${artwork.artist}</p>
+                        <p class="price">${artwork.price}</p>
+                        <button class="buy-btn">Acquire</button>
+                    </div>
+                `;
+                artworkGrid.appendChild(artworkCard);
+            });
+
+            // 3D Scene for Gallery Section
+            const galleryScene = new THREE.Scene();
+            const galleryCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            const galleryRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            galleryRenderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('gallery-3d-scene').appendChild(galleryRenderer.domElement);
+
+            const cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+            const cubeMaterial = new THREE.MeshNormalMaterial();
+            const cubeCount = 50;
+            const cubes = [];
+
+            for (let i = 0; i < cubeCount; i++) {
+                const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+                cube.position.set(
+                    Math.random() * 40 - 20,
+                    Math.random() * 40 - 20,
+                    Math.random() * 40 - 20
+                );
+                cube.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                galleryScene.add(cube);
+                cubes.push(cube);
+            }
+    
+            galleryCamera.position.z = 30;
+    
+            function animateGallery() {
+                requestAnimationFrame(animateGallery);
+                cubes.forEach(cube => {
+                    cube.rotation.x += 0.01;
+                    cube.rotation.y += 0.01;
+                });
+                galleryRenderer.render(galleryScene, galleryCamera);
+            }
+            animateGallery();
+    
+            // Parallax effect for gallery section
+            gsap.to('#gallery-3d-scene', {
+                y: '30%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.gallery',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
+                }
+            });
+        });
+    </script>
+    </body>
+    </html>
